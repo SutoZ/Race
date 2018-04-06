@@ -1,47 +1,23 @@
-﻿using Race.DAL;
-using Race.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
+using Race.DAL;
 
-namespace Race.Controllers
+namespace Race.Models
 {
-
-    public class HomeController : Controller
+    public class TeamsController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-
-
         private RaceContext db = new RaceContext();
-        
+
+      
         public ActionResult Listazas()
         {
             return View(db.Teams.ToList());
         }
+        
 
-        [Authorize]
         // GET: Teams/Details/5
         public ActionResult Details(string id)
         {
@@ -57,7 +33,6 @@ namespace Race.Controllers
             return View(team);
         }
 
-        [Authorize(Users = "asdf@asd.ciom")]
         // GET: Teams/Create
         public ActionResult Create()
         {
@@ -67,7 +42,6 @@ namespace Race.Controllers
         // POST: Teams/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Users = "asdf@asd.ciom")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Name,YearOfEstablishment,NumberOfWonChampionShip,EntryFee")] Team team)
@@ -81,7 +55,7 @@ namespace Race.Controllers
 
             return View(team);
         }
-        [Authorize(Users = "asdf@asd.ciom")]
+
         // GET: Teams/Edit/5
         public ActionResult Edit(string id)
         {
@@ -100,7 +74,6 @@ namespace Race.Controllers
         // POST: Teams/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Users = "asdf@asd.ciom")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Name,YearOfEstablishment,NumberOfWonChampionShip,EntryFee")] Team team)
@@ -113,7 +86,7 @@ namespace Race.Controllers
             }
             return View(team);
         }
-        [Authorize(Users = "asdf@asd.ciom")]
+
         // GET: Teams/Delete/5
         public ActionResult Delete(string id)
         {
@@ -130,7 +103,6 @@ namespace Race.Controllers
         }
 
         // POST: Teams/Delete/5
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
